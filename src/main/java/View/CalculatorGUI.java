@@ -23,6 +23,7 @@ public class CalculatorGUI implements CalculatorView {
     private static JButton minus;
     private static JButton multiply;
     private static JButton divide;
+
     static{
 
         calculator = new Controller();
@@ -110,6 +111,11 @@ public class CalculatorGUI implements CalculatorView {
 
     @Override
     public void displayError(String message) {
+        JFrame errorFrame = new JFrame();
+        JLabel error = new JLabel(message);
+        errorFrame.add(error);
+        errorFrame.setSize(200, 100);
+        errorFrame.setVisible(true);
         throw new ArithmeticException(message);
     }
 
