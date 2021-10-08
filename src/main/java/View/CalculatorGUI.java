@@ -10,38 +10,37 @@ import javax.swing.text.PlainDocument;
 import java.awt.*;
 
 public class CalculatorGUI implements CalculatorView {
-    private static Controller calculator;
+    private static Controller controller;
     private static JFrame frame = new JFrame("Interfaces.Calculator");
     private static JPanel panel = new JPanel();
     private static JLabel resultLabel = new JLabel("Result:");
-    private static JLabel result = new JLabel();
+    protected static JLabel result = new JLabel();
     private static final JLabel firstArgLabel = new JLabel("First Argument:");
     private static final JLabel secondArgLabel = new JLabel("Second Argument:");
-    private static JTextField firstArgValue = new JTextField("");
-    private static JTextField secondArgValue = new JTextField("");
-    private static JButton sum;
-    private static JButton minus;
-    private static JButton multiply;
-    private static JButton divide;
-
+    protected static JTextField firstArgValue = new JTextField("");
+    protected static JTextField secondArgValue = new JTextField("");
+    protected static JButton sum;
+    protected static JButton minus;
+    protected static JButton multiply;
+    protected static JButton divide;
     static{
 
-        calculator = new Controller();
+        controller = new Controller();
         sum = new JButton("+");
         sum.addActionListener(e -> {
-            calculator.onPlusClicked();
+            controller.onPlusClicked();
         });
         minus = new JButton("-");
         minus.addActionListener(e -> {
-            calculator.onMinusClicked();
+            controller.onMinusClicked();
         });
         multiply = new JButton("*");
         multiply.addActionListener( e -> {
-            calculator.onMultiplyClicked();
+            controller.onMultiplyClicked();
         });
         divide = new JButton("/");
         divide.addActionListener(e -> {
-            calculator.onDivideClicked();
+            controller.onDivideClicked();
         });
         firstArgValue.setDocument(new PlainDocument(){
             final String chars = "0123456789.";
@@ -69,6 +68,7 @@ public class CalculatorGUI implements CalculatorView {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(250, 300);
         frame.setVisible(true);
+        frame.setLocation(800, 400);
     }
 
     private static void fillPanel() {
@@ -84,25 +84,6 @@ public class CalculatorGUI implements CalculatorView {
         panel.add(divide);
     }
 
-//    public double getFirstArg(){
-//        double result = 0;
-//        try {
-//            result = Double.parseDouble(firstArgValue.getText());
-//        }catch (NumberFormatException ex){
-//            displayError("Первый аргумент пустой!");
-//        }
-//        return result;
-//    }
-//    public double getSecondArg(){
-//        double result = 0;
-//        try {
-//            result = Double.parseDouble(secondArgValue.getText());
-//        }catch (NumberFormatException ex){
-//            displayError("Второй аргумент пустой!");
-//        }
-//        return result;
-//    }
-
     @Override
     public void printResult(double resultD) {
         result.setText(String.valueOf(resultD));
@@ -116,6 +97,7 @@ public class CalculatorGUI implements CalculatorView {
         errorFrame.add(error);
         errorFrame.setSize(200, 100);
         errorFrame.setVisible(true);
+        errorFrame.setLocation(800, 400);
         throw new ArithmeticException(message);
     }
 

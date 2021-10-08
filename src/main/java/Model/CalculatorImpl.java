@@ -16,6 +16,7 @@ public class CalculatorImpl implements Calculator {
             e.printStackTrace();
         }
     }
+    public CalculatorImpl(){}
     @Override
     public double sum(double a, double b) {
         double result = a + b;
@@ -40,7 +41,8 @@ public class CalculatorImpl implements Calculator {
     @Override
     public double divide(double a, double b) {
         if(Math.abs(b) < 10e-8){
-            throw new ArithmeticException("|b| < 10e-8");
+            calculatorGUI.displayError("Деление на 0! (|b| < 10e-8)");
+            //throw new ArithmeticException("|b| < 10e-8");
         }
         double result = a / b;
         controller.resultToView(result);
