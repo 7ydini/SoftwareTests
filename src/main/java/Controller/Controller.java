@@ -5,7 +5,7 @@ import View.CalculatorGUI;
 
 public class Controller implements CalculatorPresenter {
     CalculatorImpl calculator = new CalculatorImpl();
-    CalculatorGUI calculatorGUI = new CalculatorGUI();
+    CalculatorGUI calculatorGUI = new CalculatorGUI(this);
     @Override
     public void onPlusClicked() {
         calculator.sum(calculatorGUI.getFirstArgument(), calculatorGUI.getSecondArgument());
@@ -26,6 +26,9 @@ public class Controller implements CalculatorPresenter {
         calculator.multiply(calculatorGUI.getFirstArgument(), calculatorGUI.getSecondArgument());
     }
 
+    public CalculatorGUI getCalculatorGUI() {
+        return calculatorGUI;
+    }
     public void resultToView(double result) {
         calculatorGUI.printResult(result);
     }
