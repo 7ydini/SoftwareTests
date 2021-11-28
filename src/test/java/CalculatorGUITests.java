@@ -1,4 +1,4 @@
-import Model.CalculatorImpl;
+import Controller.Controller;
 import View.CalculatorGUI;
 import org.junit.Assert;
 import org.junit.Before;
@@ -7,12 +7,12 @@ import org.junit.Test;
 
 
 public class CalculatorGUITests extends CalculatorGUI {
-    public static CalculatorImpl calculator;
+    public static Controller controller;
     public final double delta = 1e-9;
 
     @BeforeClass
     public static void createCalculatorGUI() {
-        calculator = new CalculatorImpl();
+        controller = new Controller();
     }
 
     @Before
@@ -45,9 +45,58 @@ public class CalculatorGUITests extends CalculatorGUI {
         Assert.assertEquals(1, Double.parseDouble(CalculatorGUI.result.getText()), delta);
     }
 
-    @Test(expected = ArithmeticException.class)
+    @Test
     public void displayErrorDivideByZeroTest() {
         CalculatorGUI.secondArgValue.setText("0");
         CalculatorGUI.divide.doClick();
+        Assert.assertEquals(controller.getCalculatorGUI().getError().getText(), "Деление на ноль!");
     }
+
+    @Test
+    public void displayErrorFirsArgEmptyMultiplyTest() {
+        CalculatorGUI.firstArgValue.setText("");
+        CalculatorGUI.secondArgValue.setText("1");
+        CalculatorGUI.multiply.doClick();
+        Assert.assertEquals(controller.getCalculatorGUI().getError().getText(), "Первый аргумент пустой!");
+    }
+
+    @Test
+    public void displayErrorFirsArgEmptyMinusTest() {
+        CalculatorGUI.firstArgValue.setText("");
+        CalculatorGUI.secondArgValue.setText("1");
+        CalculatorGUI.minus.doClick();
+        Assert.assertEquals(controller.getCalculatorGUI().getError().getText(), "Первый аргумент пустой!");
+    }
+
+    @Test
+    public void displayErrorFirsArgEmptySumTest() {
+        CalculatorGUI.firstArgValue.setText("");
+        CalculatorGUI.secondArgValue.setText("1");
+        CalculatorGUI.sum.doClick();
+        Assert.assertEquals(controller.getCalculatorGUI().getError().getText(), "Первый аргумент пустой!");
+    }
+    @Test
+    public void displayErrorFirsArgEmptyDivideTest() {
+        CalculatorGUI.firstArgValue.setText("");
+        CalculatorGUI.secondArgValue.setText("1");
+        CalculatorGUI.divide.doClick();
+        Assert.assertEquals(controller.getCalculatorGUI().getError().getText(), "Первый аргумент пустой!");
+    }
+
+    @Test
+    public void displayErrorSecondArgEmptySumTest() {
+        CalculatorGUI.secondArgValue.setText("");
+        CalculatorGUI.firstArgValue.setText("1");
+        CalculatorGUI.sum.doClick();
+        Assert.assertEquals(controller.getCalculatorGUI().getError().getText(), "Второй аргумент пустой!");
+    }
+
+    @Test
+    public void displayErrorSecondArgEmptyMinusTest() {
+        CalculatorGUI.secondArgValue.setText("");
+        CalculatorGUI.firstArgValue.setText("1");
+        CalculatorGUI.sum.doClick();
+        Assert.assertEquals(controller.getCalculatorGUI().getError().getText(), "Второй аргумент пустой!");
+    }
+
 }

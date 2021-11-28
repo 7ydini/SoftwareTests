@@ -3,27 +3,43 @@ import Interfaces.CalculatorPresenter;
 import Model.CalculatorImpl;
 import View.CalculatorGUI;
 
+import java.awt.*;
+
 public class Controller implements CalculatorPresenter {
-    CalculatorImpl calculator = new CalculatorImpl();
-    CalculatorGUI calculatorGUI = new CalculatorGUI(this);
+    public static CalculatorImpl calculator = new CalculatorImpl();
+    public static CalculatorGUI calculatorGUI;
+    static {
+        EventQueue.invokeLater(() -> {
+            calculatorGUI = new CalculatorGUI();
+        });
+    }
+
+    public static void main(String[] args) {
+        System.out.println("---Start---");
+    }
     @Override
     public void onPlusClicked() {
-        calculator.sum(calculatorGUI.getFirstArgument(), calculatorGUI.getSecondArgument());
+        resultToView(calculator.sum(calculatorGUI.getFirstArgument(), calculatorGUI.getSecondArgument()));
     }
 
     @Override
     public void onMinusClicked() {
-        calculator.subtract(calculatorGUI.getFirstArgument(), calculatorGUI.getSecondArgument());
+        resultToView(calculator.subtract(calculatorGUI.getFirstArgument(), calculatorGUI.getSecondArgument()));
+
     }
 
     @Override
     public void onDivideClicked() {
-        calculator.divide(calculatorGUI.getFirstArgument(), calculatorGUI.getSecondArgument());
+        try {
+            resultToView(calculator.divide(calculatorGUI.getFirstArgument(), calculatorGUI.getSecondArgument()));
+        }catch (ArithmeticException exception){
+            calculatorGUI.displayError(exception.getMessage());
+        }
     }
 
     @Override
     public void onMultiplyClicked() {
-        calculator.multiply(calculatorGUI.getFirstArgument(), calculatorGUI.getSecondArgument());
+        resultToView(calculator.multiply(calculatorGUI.getFirstArgument(), calculatorGUI.getSecondArgument()));
     }
 
     public CalculatorGUI getCalculatorGUI() {

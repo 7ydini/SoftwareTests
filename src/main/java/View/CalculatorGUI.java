@@ -19,8 +19,12 @@ public class CalculatorGUI implements CalculatorView {
         new Controller();
     }
 
-    private Controller controller;
+    private Controller controller = new Controller();
 
+
+
+    private JFrame errorFrame;
+    private JLabel error;
     private final JFrame frame = new JFrame("Interfaces.Calculator");
     private final JPanel panel = new JPanel();
     private final JLabel resultLabel = new JLabel("Result:");
@@ -49,8 +53,6 @@ public class CalculatorGUI implements CalculatorView {
         });
         divide = new JButton("/");
         divide.addActionListener(e -> {
-            if (secondArgValue.getText().equals("0"))
-                this.displayError("Деление на 0! (|b| < 10e-8)");
             controller.onDivideClicked();
         });
         firstArgValue.setDocument(new PlainDocument() {
@@ -105,8 +107,8 @@ public class CalculatorGUI implements CalculatorView {
 
     @Override
     public void displayError(String message) {
-        JFrame errorFrame = new JFrame();
-        JLabel error = new JLabel(message);
+        errorFrame = new JFrame();
+        error = new JLabel(message);
         errorFrame.add(error);
         errorFrame.setSize(200, 100);
         errorFrame.setVisible(true);
@@ -118,6 +120,8 @@ public class CalculatorGUI implements CalculatorView {
         double result = 0;
         try {
             result = Double.parseDouble(firstArgValue.getText());
+            if(getFirstArgValue().getText().equals(""))
+                throw new NumberFormatException();
         } catch (NumberFormatException ex) {
             displayError("Первый аргумент пустой!");
         }
@@ -128,6 +132,8 @@ public class CalculatorGUI implements CalculatorView {
     public double getSecondArgument() {
         double result = 0;
         try {
+            if(getSecondArgValue().getText().equals(""))
+                throw new NumberFormatException();
             result = Double.parseDouble(secondArgValue.getText());
         } catch (NumberFormatException ex) {
             displayError("Второй аргумент пустой!");
@@ -181,5 +187,11 @@ public class CalculatorGUI implements CalculatorView {
 
     public JButton getDivide() {
         return divide;
+    }
+    public JFrame getErrorFrame() {
+        return errorFrame;
+    }
+    public JLabel getError() {
+        return error;
     }
 }
