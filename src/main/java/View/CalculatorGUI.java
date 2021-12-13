@@ -11,32 +11,21 @@ import java.awt.*;
 
 public class CalculatorGUI implements CalculatorView {
 
-    public CalculatorGUI(Controller controller) {
-        this.controller = controller;
-    }
-
-    public CalculatorGUI() {
-        new Controller();
-    }
-
-    private Controller controller = new Controller();
-
-
-
-    private JFrame errorFrame;
-    private JLabel error;
-    private final JFrame frame = new JFrame("Interfaces.Calculator");
-    private final JPanel panel = new JPanel();
-    private final JLabel resultLabel = new JLabel("Result:");
     protected static JLabel result = new JLabel();
-    private final JLabel firstArgLabel = new JLabel("First Argument:");
-    private final JLabel secondArgLabel = new JLabel("Second Argument:");
     protected static JTextField firstArgValue = new JTextField("");
     protected static JTextField secondArgValue = new JTextField("");
     protected static JButton sum;
     protected static JButton minus;
     protected static JButton multiply;
     protected static JButton divide;
+    private final JFrame frame = new JFrame("Interfaces.Calculator");
+    private final JPanel panel = new JPanel();
+    private final JLabel resultLabel = new JLabel("Result:");
+    private final JLabel firstArgLabel = new JLabel("First Argument:");
+    private final JLabel secondArgLabel = new JLabel("Second Argument:");
+    private Controller controller = new Controller();
+    private JFrame errorFrame;
+    private JLabel error;
 
     {
         sum = new JButton("+");
@@ -85,6 +74,13 @@ public class CalculatorGUI implements CalculatorView {
         frame.setVisible(true);
         frame.setLocation(800, 400);
     }
+    public CalculatorGUI(Controller controller) {
+        this.controller = controller;
+    }
+
+    public CalculatorGUI() {
+        new Controller();
+    }
 
     private void fillPanel() {
         panel.add(firstArgLabel);
@@ -120,7 +116,7 @@ public class CalculatorGUI implements CalculatorView {
         double result = 0;
         try {
             result = Double.parseDouble(firstArgValue.getText());
-            if(getFirstArgValue().getText().equals(""))
+            if (getFirstArgValue().getText().equals(""))
                 throw new NumberFormatException();
         } catch (NumberFormatException ex) {
             displayError("Первый аргумент пустой!");
@@ -132,7 +128,7 @@ public class CalculatorGUI implements CalculatorView {
     public double getSecondArgument() {
         double result = 0;
         try {
-            if(getSecondArgValue().getText().equals(""))
+            if (getSecondArgValue().getText().equals(""))
                 throw new NumberFormatException();
             result = Double.parseDouble(secondArgValue.getText());
         } catch (NumberFormatException ex) {
@@ -188,9 +184,11 @@ public class CalculatorGUI implements CalculatorView {
     public JButton getDivide() {
         return divide;
     }
+
     public JFrame getErrorFrame() {
         return errorFrame;
     }
+
     public JLabel getError() {
         return error;
     }
