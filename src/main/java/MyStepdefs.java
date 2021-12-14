@@ -1,16 +1,23 @@
 import Controller.Controller;
-import cucumber.api.java.Before;
-import cucumber.api.java.ru.Дано;
-import cucumber.api.java.ru.Если;
-import cucumber.api.java.ru.Тогда;
+import View.CalculatorGUI;
+import io.cucumber.java.Before;
+import io.cucumber.java.ru.Р”Р°РЅРѕ;
+import io.cucumber.java.ru.Р•СЃР»Рё;
+import io.cucumber.java.ru.РўРѕРіРґР°;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 
+import java.awt.*;
 import java.util.Locale;
 
 
 class Mock extends Controller {
     public Mock() {
         super();
+    }
+    static {
+        EventQueue.invokeLater(()-> calculatorGUI
+                = new CalculatorGUI());
     }
 
     public void close_message() {
@@ -27,57 +34,58 @@ public class MyStepdefs {
     private static Mock app;
 
     //private static double a,b;
+
     @Before
     public static void init() {
         app = new Mock();
     }
 
-    @Дано("^введены два числа (.+) и (.+)")
+    @Р”Р°РЅРѕ("^РІРІРµРґРµРЅС‹ РґРІР° С‡РёСЃР»Р° (.+) Рё (.+)")
     public void given(String a, String b) {
         app.getCalculatorGUI().getFirstArgValue().setText(a);
         app.getCalculatorGUI().getSecondArgValue().setText(b);
     }
 
-    @Дано("^введено только первое число (-?\\d+.?\\d*)")
+    @Р”Р°РЅРѕ("^РІРІРµРґРµРЅРѕ С‚РѕР»СЊРєРѕ РїРµСЂРІРѕРµ С‡РёСЃР»Рѕ (-?\\d+.?\\d*)")
     public void given_first(double a) {
         app.getCalculatorGUI().getFirstArgValue().setText(Double.toString(a));
     }
 
-    @Дано("^введено только второе число (-?\\d+.?\\d*)")
+    @Р”Р°РЅРѕ("^РІРІРµРґРµРЅРѕ С‚РѕР»СЊРєРѕ РІС‚РѕСЂРѕРµ С‡РёСЃР»Рѕ (-?\\d+.?\\d*)")
     public void given_second(double b) {
         app.getCalculatorGUI().getSecondArgValue().setText(Double.toString(b));
     }
 
-    @Если("^сложить$")
+    @Р•СЃР»Рё("^СЃР»РѕР¶РёС‚СЊ$")
     public void when_sum() {
         app.getCalculatorGUI().getSum().doClick();
         //app.close_message();
     }
 
-    @Если("^вычесть$")
+    @Р•СЃР»Рё("^РІС‹С‡РµСЃС‚СЊ$")
     public void when_subtract() {
         app.getCalculatorGUI().getMinus().doClick();
         //app.close_message();
     }
 
-    @Если("^умножить$")
+    @Р•СЃР»Рё("^СѓРјРЅРѕР¶РёС‚СЊ$")
     public void when_multiply() {
         app.getCalculatorGUI().getMultiply().doClick();
         //app.close_message();
     }
 
-    @Если("^разделить$")
+    @Р•СЃР»Рё("^СЂР°Р·РґРµР»РёС‚СЊ$")
     public void when_divide() {
         app.getCalculatorGUI().getDivide().doClick();
         //app.close_message();
     }
 
-    @Тогда("^получим (.+)$")
+    @РўРѕРіРґР°("^РїРѕР»СѓС‡РёРј (.+)$")
     public void then_result(String res) {
         Assert.assertEquals(String.format(Locale.ROOT, "%.8f", Double.parseDouble(res)), app.getCalculatorGUI().getResult().getText());
     }
 
-    @Тогда("^произойдет (.+.)$")
+    @РўРѕРіРґР°("^РїСЂРѕРёР·РѕР№РґС‘С‚ (.+.)$")
     public void then_error(String error) {
         Assert.assertEquals(error, app.get_message());
     }

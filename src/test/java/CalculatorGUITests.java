@@ -1,6 +1,5 @@
 import Controller.Controller;
 import View.CalculatorGUI;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;

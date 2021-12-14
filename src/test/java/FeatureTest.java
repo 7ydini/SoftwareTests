@@ -1,14 +1,14 @@
-import cucumber.api.CucumberOptions;
-import cucumber.api.SnippetType;
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 
-//@RunWith(Cucumber.class)
+@RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "C:/Users/dimma/IdeaProjects/JUnit/src/test/java",
-        snippets = SnippetType.CAMELCASE
+        features = "C:\\Users\\Dmitry Lysyy\\IdeaProjects\\SoftwareTests\\src\\test\\java"
+
 )
 public class FeatureTest {
-	
-	
+
+
 }
