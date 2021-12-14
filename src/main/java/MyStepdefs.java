@@ -1,43 +1,25 @@
 import Controller.Controller;
-import View.CalculatorGUI;
 import io.cucumber.java.Before;
+import io.cucumber.java.BeforeAll;
 import io.cucumber.java.ru.Дано;
 import io.cucumber.java.ru.Если;
+import io.cucumber.java.ru.То;
 import io.cucumber.java.ru.Тогда;
 import org.junit.Assert;
-import org.junit.BeforeClass;
-
-import java.awt.*;
-import java.util.Locale;
-
-
-class Mock extends Controller {
-    public Mock() {
-        super();
-    }
-    static {
-        EventQueue.invokeLater(()-> calculatorGUI
-                = new CalculatorGUI());
-    }
-
-    public void close_message() {
-        this.getCalculatorGUI().getResult().setText("");
-    }
-
-    public String get_message() {
-        return this.getCalculatorGUI().getError().getText();
-    }
-}
 
 public class MyStepdefs {
 
-    private static Mock app;
+    private static Controller app;
+    public final double delta = 1e-9;
 
-    //private static double a,b;
-
-    @Before
+    @BeforeAll
     public static void init() {
-        app = new Mock();
+        app = new Controller();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Дано("^введены два числа (.+) и (.+)")
@@ -82,11 +64,16 @@ public class MyStepdefs {
 
     @Тогда("^получим (.+)$")
     public void then_result(String res) {
-        Assert.assertEquals(String.format(Locale.ROOT, "%.8f", Double.parseDouble(res)), app.getCalculatorGUI().getResult().getText());
+        Assert.assertEquals(Double.parseDouble(res), Double.parseDouble(app.getCalculatorGUI().getResult().getText()), delta);
     }
 
     @Тогда("^произойдёт (.+.)$")
     public void then_error(String error) {
-        Assert.assertEquals(error, app.get_message());
+        Assert.assertEquals(error, app.getCalculatorGUI().getError().getText());
+    }
+
+    @То("произойдет (.+.)$")
+    public void произойдетError(String error) {
+        Assert.assertEquals(error, app.getCalculatorGUI().getError().getText());
     }
 }

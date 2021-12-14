@@ -47,7 +47,7 @@
     То произойдет <error>
 
     Примеры:
-      | a      | b    | error                                                  |
-      | 3.2    | 0    | Second argument is zero. Divide by zero is not allowed. |
-      | -2.1   | 0    | Second argument is zero. Divide by zero is not allowed. |
-      | 0      | 0    | Second argument is zero. Divide by zero is not allowed. |
+      | a      | b    | error         |
+      | 3.2    | 0    | \|b\| < 10e-8 |
+      | -2.1   | 0    | \|b\| < 10e-8 |
+      | 0      | 0    | \|b\| < 10e-8 |

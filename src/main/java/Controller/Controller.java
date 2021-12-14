@@ -15,7 +15,7 @@ public class Controller implements CalculatorPresenter {
     }
 
     public static void main(String[] args) {
-        System.out.println("---Start--- �� ���");
+        System.out.println("---Start--- ?? wtf");
     }
     @Override
     public void onPlusClicked() {

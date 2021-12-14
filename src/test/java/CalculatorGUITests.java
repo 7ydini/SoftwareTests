@@ -49,7 +49,7 @@ public class CalculatorGUITests extends CalculatorGUI {
     public void displayErrorDivideByZeroTest() {
         CalculatorGUI.secondArgValue.setText("0");
         CalculatorGUI.divide.doClick();
-        Assert.assertEquals(controller.getCalculatorGUI().getError().getText(), "Деление на ноль!");
+        Assert.assertEquals(controller.getCalculatorGUI().getError().getText(), "|b| < 10e-8");
     }
 
     @Test
