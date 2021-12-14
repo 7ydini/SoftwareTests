@@ -14,10 +14,7 @@ public class CalculatorGUI implements CalculatorView {
     protected static JLabel result = new JLabel();
     protected static JTextField firstArgValue = new JTextField("");
     protected static JTextField secondArgValue = new JTextField("");
-    protected static JButton sum;
-    protected static JButton minus;
-    protected static JButton multiply;
-    protected static JButton divide;
+    protected static JButton sum, minus, multiply, divide;
     private final JFrame frame = new JFrame("Interfaces.Calculator");
     private final JPanel panel = new JPanel();
     private final JLabel resultLabel = new JLabel("Result:");
@@ -103,6 +100,9 @@ public class CalculatorGUI implements CalculatorView {
 
     @Override
     public void displayError(String message) {
+        if(errorFrame != null){
+            errorFrame.dispose();
+        }
         errorFrame = new JFrame();
         error = new JLabel(message);
         errorFrame.add(error);

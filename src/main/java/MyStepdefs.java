@@ -7,7 +7,7 @@ import io.cucumber.java.ru.То;
 import io.cucumber.java.ru.Тогда;
 import org.junit.Assert;
 
-public class MyStepdefs {
+public class MyStepdefs{
 
     private static Controller app;
     public final double delta = 1e-9;
@@ -21,10 +21,17 @@ public class MyStepdefs {
             e.printStackTrace();
         }
     }
+    @Before
+    public static void waitB(){
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Дано("^введены два числа (.+) и (.+)")
     public void given(String a, String b) {
-        app.getCalculatorGUI().getFirstArgValue().setText(a);
         app.getCalculatorGUI().getSecondArgValue().setText(b);
     }
 
